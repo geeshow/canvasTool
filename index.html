@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>작업중123</title>
+    <link rel="stylesheet" href="css/StyleSheet.css">
+    <script>
+
+
+        paintBoard = new function() {
+            let drawTask = [];
+            let canvas;
+            let ctx;
+
+            this.eventLoadWindow = function(evt) {
+                canvas = document.getElementById('canvas');
+                ctx = canvas.getContext('2d');
+
+                document.getElementById('fillStyle').addEventListener('input', paintBoard.eventMenuClick, false);
+                document.getElementById('fillRectMenu').addEventListener('click', paintBoard.eventMenuClick, false);
+                
+            }
+
+            this.eventMenuClick = function(evt) {
+                console.log('eventMenuClick');
+                let taskId = document.getElementById(evt.srcElement.id).getAttribute('task');
+                console.log(taskId);
+                switch (taskId) {
+                    case 'fillRect':
+                        paintBoard.addDrawTask({
+                            taskId: taskId
+                            , type: 'draw'
+                            , param: {
+                                 x: 50
+                                , y: 50
+                                , width: 100
+                                , height: 100
+                            }
+                            , drawing: function (param) {
+                                ctx.fillRect(param.x, param.y, param.width, param.height);
+                            }
+                        });
+                        break;
+                    case 'fillStyle':
+                        paintBoard.addDrawTask({
+                            taskId: evt.srcElement.id
+                            , type: 'option'
+                            , param: evt.srcElement.getAttribute('value')
+                            , drawing: function (param) {
+                                ctx.fillStyle = param;
+                            }
+                        });
+                        break;
+                }
+                paintBoard.drawingTask();
+            }
+
+            this.addDrawTask = function (task) {
+                console.log('addTask', task);
+                drawTask.push(task);
+                document.getElementById('history').innerHTML = '<li>' + task.taskId + '</li>' + document.getElementById('history').innerHTML;
+            }
+
+            this.drawingTask = function () {
+                for (let i = 0 ; i < drawTask.length ; i++) {
+                    let task = drawTask[i];
+                    task.drawing(task.param);
+                }
+            }
+        };
+        
+        window.addEventListener('load', paintBoard.eventLoadWindow, false);
+
+    </script>
+</head>
+<body>
+    <div id="head">
+        <div class="mainTitle">GeeShow Project</div>
+    </div>
+    <div id="body">
+        <div id="optionMenu" class='menu'>
+            <h3><span>Option</span></h3>
+            <ul>
+                <li>
+                    <div id="fillStyleMenu"><input type='color' class='optionInput' id='fillStyle' size='5' value="#AABBCC"  task='fillStyle'> fillStyle</div>
+                </li>
+            </ul>
+            <h3><span>Drawing</span></h3>
+            <ul>
+                <li>
+                    <div id="fillRectMenu" task='fillRect'>fillRect</div>
+                </li>
+            </ul>
+        </div>
+        <div id="main">
+            <div id="tbarArea">
+
+            </div>
+            <div id="content">
+                <canvas id='canvas' width="600" height="800"></canvas>
+            </div>
+            <div id="status"></div>
+        </div>
+        <div id="taskList" class='history'>
+            <h3><span>History</span></h3>
+            <ul id="history">
+                <li>fillStyle = 'black'</li>
+                <li>fillRect(1,2,100,200)</li>
+            </ul>
+        </div>
+    </div>
+    <div id="foot">하단</div>
+</body>
+</html>
