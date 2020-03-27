@@ -1,14 +1,16 @@
 <template>
   <div>
-    <div v-for="user in this.$store.state.news" v-bind:key="user.id">{{ user.title }}</div>
+    <list-item></list-item>
   </div>
 </template>
 
 <script>
+import ListItem from '../components/ListItem.vue';
+
 export default {
-  created() {
-    this.$store.dispatch('FETCH_NEWS');
-  },
+  components: {
+    ListItem,
+  }
 }
 </script>
 
