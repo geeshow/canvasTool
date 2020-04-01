@@ -9,12 +9,10 @@ export const store = new Vuex.Store({
     state: {
         user: {},
         item: {},
-        list: []
+        list: [],
+        page: {}
     },
     getters: {
-        fetchedAsk(state) {
-            return state.asks;
-        },
         fetchedItem(state) {
             return state.item;
         }

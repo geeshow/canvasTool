@@ -28,7 +28,7 @@ export const router = new VueRouter({
           bus.$emit('start:spinner');
           store.dispatch('FETCH_LIST', to.name)
             .then(()=> {
-              console.log('fetched');
+              console.log('fetched', to.name);
               next();
             })
             .catch((error) => {
@@ -45,7 +45,7 @@ export const router = new VueRouter({
           bus.$emit('start:spinner');
           store.dispatch('FETCH_LIST', to.name)
             .then(()=> {
-              console.log('fetched');
+              console.log('fetched', to.name);
               next();
             })
             .catch((error) => {
@@ -59,11 +59,12 @@ export const router = new VueRouter({
         //component: createListView('JobsView'),
         component: JobsView,
         beforeEnter: (to, from, next) => {
+            console.log('beforeEnter');
           bus.$emit('start:spinner');
           store.dispatch('FETCH_LIST', to.name)
             .then(()=> {
-              console.log('fetched');
-              next();
+                console.log('fetched', to);
+                next();
             })
             .catch((error) => {
               console.log(error);
