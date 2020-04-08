@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { registerUser } from '@/api/index'
+
 export default {
   data() {
     return {
@@ -30,6 +32,7 @@ export default {
   methods: {
     submitForm() {
       console.log('폼 제출');
+      registerUser();
     },
   },
 };
