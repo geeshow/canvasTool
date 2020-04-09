@@ -1,8 +1,11 @@
 import axios from 'axios';
 
-function registerUser() {
-  const url = 'http://localhost:3000/signup';
-  return axios.post(url);
+const instance = axios.create({
+  baseURL: 'http://localhost:3000/',
+});
+
+function registerUser(userData) {
+  return instance.post('signup', userData);
 }
 
 export { registerUser };
