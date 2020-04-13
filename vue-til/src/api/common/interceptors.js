@@ -5,9 +5,8 @@ export function setInterceptors(instance) {
   instance.interceptors.request.use(
     function(config) {
       // Do something before request is sent
+      // console.log(config);
       config.headers.Authorization = store.state.token;
-      console.log('TOKEN2', store.state);
-      console.log('config2', config.headers);
       return config;
     },
     function(error) {
