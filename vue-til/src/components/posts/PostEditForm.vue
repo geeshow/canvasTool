@@ -52,6 +52,7 @@ export default {
         });
         this.$router.push('/main');
       } catch (error) {
+        console.log(error);
         this.logMessage = error;
       }
     },
